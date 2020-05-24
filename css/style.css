@@ -1,0 +1,92 @@
+html{
+    background-color: rgba(18, 82, 138, 0.699);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.header{
+    text-align: center;
+}
+
+.hahaFunny{
+    font-size: 16px;
+}
+
+.gameSpace{
+    display: grid;
+    /* background-color: snow; */
+    width: 100vw;
+    /* height: 60vh; */
+    grid-template-areas: 
+    "player computer";
+}
+
+.playerSpace{
+    /* background-color: turquoise; */
+    grid-area: player;
+}
+
+.computerSpace{
+    /* background-color: tomato; */
+    grid-area: computer;
+}
+
+#playerBoard {
+    display: grid;
+    padding: 10px;
+    grid-template-columns: repeat(11, 100px);
+    grid-template-rows: repeat(11, 70px);
+    /* grid-gap: 1px; */
+}
+
+#computerBoard {
+    display: grid;
+    padding: 10px;
+    grid-template-columns: repeat(11, 100px);
+    grid-template-rows: repeat(11, 70px);
+    /* grid-gap: 1px; */
+}
+
+#playerBoard div {
+    border: 1px solid black;
+}
+
+#playerBoard div.emptyBorder{
+    border: 0px;
+}
+
+div.botBorder{
+    border-bottom: 2px solid black;
+}
+
+#computerBoard div {
+    border: 1px solid black;
+}
+
+#computerBoard div.emptyBorder{
+    border: 0px;
+}
+
+/* #computerBoard div#botBorder{
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    border-bottom: 1px solid black;
+}
+
+#computerBoard div#rightBorder{
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 1px solid black;
+    border-bottom: 0px;
+} */
+
+p{
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.info{
+    background-color: darkblue;
+    height: 300px;
+}

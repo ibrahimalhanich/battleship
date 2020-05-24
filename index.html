@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <script defer src="js/main.js"></script>
+  <link defer href="css/style.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Battleship</title>
+</head>
+
+<body>
+  <h1 class="header">Get ready to BATTLE<span class="hahaFunny">...ship</span></h1>
+  <br>
+  <br>
+  <div class="gameSpace">
+
+    <div class="playerSpace">
+
+      <section id="playerBoard">
+        <div class="emptyBorder" id="c0r0"></div>
+        <div class="emptyBorder" id="c1r0">
+          <p>1</p>
+        </div>
+        <div class="emptyBorder" id="c2r0">
+          <p>2</p>
+        </div>
+        <div class="emptyBorder" id="c3r0">
+          <p>3</p>
+        </div>
+        <div class="emptyBorder" id="c4r0">
+          <p>4</p>
+        </div>
+        <div class="emptyBorder" id="c5r0">
+          <p>5</p>
+        </div>
+        <div class="emptyBorder" id="c6r0">
+          <p>6</p>
+        </div>
+        <div class="emptyBorder" id="c7r0">
+          <p>7</p>
+        </div>
+        <div class="emptyBorder" id="c8r0">
+          <p>8</p>
+        </div>
+        <div class="emptyBorder" id="c9r0">
+          <p>9</p>
+        </div>
+        <div class="emptyBorder" id="c10r0">
+          <p>10</p>
+        </div>
+
+        <div class="emptyBorder" id="c0rA">
+          <p>A</p>
+        </div>
+        <div class="playable" id="c1rA"></div>
+        <div class="playable" id="c2rA"></div>
+        <div class="playable" id="c3rA"></div>
+        <div class="playable" id="c4rA"></div>
+        <div class="playable" id="c5rA"></div>
+        <div class="playable" id="c6rA"></div>
+        <div class="playable" id="c7rA"></div>
+        <div class="playable" id="c8rA"></div>
+        <div class="playable" id="c9rA"></div>
+        <div class="playable" id="c10rA"></div>
+
+        <div class="emptyBorder" id="c0rB">
+          <p>B</p>
+        </div>
+        <div class="playable" id="c1rB"></div>
+        <div class="playable" id="c2rB"></div>
+        <div class="playable" id="c3rB"></div>
+        <div class="playable" id="c4rB"></div>
+        <div class="playable" id="c5rB"></div>
+        <div class="playable" id="c6rB"></div>
+        <div class="playable" id="c7rB"></div>
+        <div class="playable" id="c8rB"></div>
+        <div class="playable" id="c9rB"></div>
+        <div class="playable" id="c10rB"></div>
+
+        <div class="emptyBorder" id="c0rC">
+          <p>C</p>
+        </div>
+        <div class="playable" id="c1rC"></div>
+        <div class="playable" id="c2rC"></div>
+        <div class="playable" id="c3rC"></div>
+        <div class="playable" id="c4rC"></div>
+        <div class="playable" id="c5rC"></div>
+        <div class="playable" id="c6rC"></div>
+        <div class="playable" id="c7rC"></div>
+        <div class="playable" id="c8rC"></div>
+        <div class="playable" id="c9rC"></div>
+        <div class="playable" id="c10rC"></div>
+
+        <div class="emptyBorder" id="c0rD">
+          <p>D</p>
+        </div>
+        <div class="playable" id="c1rD"></div>
+        <div class="playable" id="c2rD"></div>
+        <div class="playable" id="c3rD"></div>
+        <div class="playable" id="c4rD"></div>
+        <div class="playable" id="c5rD"></div>
+        <div class="playable" id="c6rD"></div>
+        <div class="playable" id="c7rD"></div>
+        <div class="playable" id="c8rD"></div>
+        <div class="playable" id="c9rD"></div>
+        <div class="playable" id="c10rD"></div>
+
+        <div class="emptyBorder" id="c0rE">
+          <p>E</p>
+        </div>
+        <div class="playable" id="c1rE"></div>
+        <div class="playable" id="c2rE"></div>
+        <div class="playable" id="c3rE"></div>
+        <div class="playable" id="c4rE"></div>
+        <div class="playable" id="c5rE"></div>
+        <div class="playable" id="c6rE"></div>
+        <div class="playable" id="c7rE"></div>
+        <div class="playable" id="c8rE"></div>
+        <div class="playable" id="c9rE"></div>
+        <div class="playable" id="c10rE"></div>
+
+        <div class="emptyBorder" id="c0rF">
+          <p>F</p>
+        </div>
+        <div class="playable" id="c1rF"></div>
+        <div class="playable" id="c2rF"></div>
+        <div class="playable" id="c3rF"></div>
+        <div class="playable" id="c4rF"></div>
+        <div class="playable" id="c5rF"></div>
+        <div class="playable" id="c6rF"></div>
+        <div class="playable" id="c7rF"></div>
+        <div class="playable" id="c8rF"></div>
+        <div class="playable" id="c9rF"></div>
+        <div class="playable" id="c10rF"></div>
+
+        <div class="emptyBorder" id="c0rG">
+          <p>G</p>
+        </div>
+        <div class="playable" id="c1rG"></div>
+        <div class="playable" id="c2rG"></div>
+        <div class="playable" id="c3rG"></div>
+        <div class="playable" id="c4rG"></div>
+        <div class="playable" id="c5rG"></div>
+        <div class="playable" id="c6rG"></div>
+        <div class="playable" id="c7rG"></div>
+        <div class="playable" id="c8rG"></div>
+        <div class="playable" id="c9rG"></div>
+        <div class="playable" id="c10rG"></div>
+
+        <div class="emptyBorder" id="c0rH">
+          <p>H</p>
+        </div>
+        <div class="playable" id="c1rH"></div>
+        <div class="playable" id="c2rH"></div>
+        <div class="playable" id="c3rH"></div>
+        <div class="playable" id="c4rH"></div>
+        <div class="playable" id="c5rH"></div>
+        <div class="playable" id="c6rH"></div>
+        <div class="playable" id="c7rH"></div>
+        <div class="playable" id="c8rH"></div>
+        <div class="playable" id="c9rH"></div>
+        <div class="playable" id="c10rH"></div>
+
+        <div class="emptyBorder" id="c0rI">
+          <p>I</p>
+        </div>
+        <div class="playable" id="c1rI"></div>
+        <div class="playable" id="c2rI"></div>
+        <div class="playable" id="c3rI"></div>
+        <div class="playable" id="c4rI"></div>
+        <div class="playable" id="c5rI"></div>
+        <div class="playable" id="c6rI"></div>
+        <div class="playable" id="c7rI"></div>
+        <div class="playable" id="c8rI"></div>
+        <div class="playable" id="c9rI"></div>
+        <div class="playable" id="c10rI"></div>
+
+        <div class="emptyBorder" id="c0rJ">
+          <p>J</p>
+        </div>
+        <div class="playable" id="c1rJ"></div>
+        <div class="playable" id="c2rJ"></div>
+        <div class="playable" id="c3rJ"></div>
+        <div class="playable" id="c4rJ"></div>
+        <div class="playable" id="c5rJ"></div>
+        <div class="playable" id="c6rJ"></div>
+        <div class="playable" id="c7rJ"></div>
+        <div class="playable" id="c8rJ"></div>
+        <div class="playable" id="c9rJ"></div>
+        <div class="playable" id="c10rJ"></div>
+      </section>
+
+
+
+    </div>
+
+    <div class="computerSpace">
+
+      <section id="computerBoard">
+        <div class="emptyBorder" id="c0r0"></div>
+        <div class="emptyBorder" id="c1r0">
+          <p>1</p>
+        </div>
+        <div class="emptyBorder" id="c2r0">
+          <p>2</p>
+        </div>
+        <div class="emptyBorder" id="c3r0">
+          <p>3</p>
+        </div>
+        <div class="emptyBorder" id="c4r0">
+          <p>4</p>
+        </div>
+        <div class="emptyBorder" id="c5r0">
+          <p>5</p>
+        </div>
+        <div class="emptyBorder" id="c6r0">
+          <p>6</p>
+        </div>
+        <div class="emptyBorder" id="c7r0">
+          <p>7</p>
+        </div>
+        <div class="emptyBorder" id="c8r0">
+          <p>8</p>
+        </div>
+        <div class="emptyBorder" id="c9r0">
+          <p>9</p>
+        </div>
+        <div class="emptyBorder" id="c10r0">
+          <p>10</p>
+        </div>
+
+        <div class="emptyBorder" id="c0rA">
+          <p>A</p>
+        </div>
+        <div class="playable" id="c1rA"></div>
+        <div class="playable" id="c2rA"></div>
+        <div class="playable" id="c3rA"></div>
+        <div class="playable" id="c4rA"></div>
+        <div class="playable" id="c5rA"></div>
+        <div class="playable" id="c6rA"></div>
+        <div class="playable" id="c7rA"></div>
+        <div class="playable" id="c8rA"></div>
+        <div class="playable" id="c9rA"></div>
+        <div class="playable" id="c10rA"></div>
+
+        <div class="emptyBorder" id="c0rB">
+          <p>B</p>
+        </div>
+        <div class="playable" id="c1rB"></div>
+        <div class="playable" id="c2rB"></div>
+        <div class="playable" id="c3rB"></div>
+        <div class="playable" id="c4rB"></div>
+        <div class="playable" id="c5rB"></div>
+        <div class="playable" id="c6rB"></div>
+        <div class="playable" id="c7rB"></div>
+        <div class="playable" id="c8rB"></div>
+        <div class="playable" id="c9rB"></div>
+        <div class="playable" id="c10rB"></div>
+
+        <div class="emptyBorder" id="c0rC">
+          <p>C</p>
+        </div>
+        <div class="playable" id="c1rC"></div>
+        <div class="playable" id="c2rC"></div>
+        <div class="playable" id="c3rC"></div>
+        <div class="playable" id="c4rC"></div>
+        <div class="playable" id="c5rC"></div>
+        <div class="playable" id="c6rC"></div>
+        <div class="playable" id="c7rC"></div>
+        <div class="playable" id="c8rC"></div>
+        <div class="playable" id="c9rC"></div>
+        <div class="playable" id="c10rC"></div>
+
+        <div class="emptyBorder" id="c0rD">
+          <p>D</p>
+        </div>
+        <div class="playable" id="c1rD"></div>
+        <div class="playable" id="c2rD"></div>
+        <div class="playable" id="c3rD"></div>
+        <div class="playable" id="c4rD"></div>
+        <div class="playable" id="c5rD"></div>
+        <div class="playable" id="c6rD"></div>
+        <div class="playable" id="c7rD"></div>
+        <div class="playable" id="c8rD"></div>
+        <div class="playable" id="c9rD"></div>
+        <div class="playable" id="c10rD"></div>
+
+        <div class="emptyBorder" id="c0rE">
+          <p>E</p>
+        </div>
+        <div class="playable" id="c1rE"></div>
+        <div class="playable" id="c2rE"></div>
+        <div class="playable" id="c3rE"></div>
+        <div class="playable" id="c4rE"></div>
+        <div class="playable" id="c5rE"></div>
+        <div class="playable" id="c6rE"></div>
+        <div class="playable" id="c7rE"></div>
+        <div class="playable" id="c8rE"></div>
+        <div class="playable" id="c9rE"></div>
+        <div class="playable" id="c10rE"></div>
+
+        <div class="emptyBorder" id="c0rF">
+          <p>F</p>
+        </div>
+        <div class="playable" id="c1rF"></div>
+        <div class="playable" id="c2rF"></div>
+        <div class="playable" id="c3rF"></div>
+        <div class="playable" id="c4rF"></div>
+        <div class="playable" id="c5rF"></div>
+        <div class="playable" id="c6rF"></div>
+        <div class="playable" id="c7rF"></div>
+        <div class="playable" id="c8rF"></div>
+        <div class="playable" id="c9rF"></div>
+        <div class="playable" id="c10rF"></div>
+
+        <div class="emptyBorder" id="c0rG">
+          <p>G</p>
+        </div>
+        <div class="playable" id="c1rG"></div>
+        <div class="playable" id="c2rG"></div>
+        <div class="playable" id="c3rG"></div>
+        <div class="playable" id="c4rG"></div>
+        <div class="playable" id="c5rG"></div>
+        <div class="playable" id="c6rG"></div>
+        <div class="playable" id="c7rG"></div>
+        <div class="playable" id="c8rG"></div>
+        <div class="playable" id="c9rG"></div>
+        <div class="playable" id="c10rG"></div>
+
+        <div class="emptyBorder" id="c0rH">
+          <p>H</p>
+        </div>
+        <div class="playable" id="c1rH"></div>
+        <div class="playable" id="c2rH"></div>
+        <div class="playable" id="c3rH"></div>
+        <div class="playable" id="c4rH"></div>
+        <div class="playable" id="c5rH"></div>
+        <div class="playable" id="c6rH"></div>
+        <div class="playable" id="c7rH"></div>
+        <div class="playable" id="c8rH"></div>
+        <div class="playable" id="c9rH"></div>
+        <div class="playable" id="c10rH"></div>
+
+        <div class="emptyBorder" id="c0rI">
+          <p>I</p>
+        </div>
+        <div class="playable" id="c1rI"></div>
+        <div class="playable" id="c2rI"></div>
+        <div class="playable" id="c3rI"></div>
+        <div class="playable" id="c4rI"></div>
+        <div class="playable" id="c5rI"></div>
+        <div class="playable" id="c6rI"></div>
+        <div class="playable" id="c7rI"></div>
+        <div class="playable" id="c8rI"></div>
+        <div class="playable" id="c9rI"></div>
+        <div class="playable" id="c10rI"></div>
+
+        <div class="emptyBorder" id="c0rJ">
+          <p>J</p>
+        </div>
+        <div class="playable" id="c1rJ"></div>
+        <div class="playable" id="c2rJ"></div>
+        <div class="playable" id="c3rJ"></div>
+        <div class="playable" id="c4rJ"></div>
+        <div class="playable" id="c5rJ"></div>
+        <div class="playable" id="c6rJ"></div>
+        <div class="playable" id="c7rJ"></div>
+        <div class="playable" id="c8rJ"></div>
+        <div class="playable" id="c9rJ"></div>
+        <div class="playable" id="c10rJ"></div>
+      </section>
+
+    </div>
+
+  </div>
+  <div class="info">
+  </div>
+
+
+  <!-- <div class="helpButtonContainer">
+    <button class="helpButton">?</button>
+    <p class="helpText"> Help Text Placeholder </p>
+  </div> -->
+</body>
+
+</html>
