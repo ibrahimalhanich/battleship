@@ -2,7 +2,7 @@
 //second element is for player-1's index being a hit, miss or undiscovered (1 is hit, -1 is miss, 0 is undiscovered)
 //third element is for player-2's occupation on that index (1 means p2 occupied, 0 not occupied)
 //fourth element is for player-2's index being a hit, miss or undiscovered (1 is hit, -1 is miss, 0 is undiscovered)
-const mapIndex = {
+var mapIndex = {
   //first row 
   "gc-1-1": [0, 0, 0, 0],
   "gc-2-1": [0, 0, 0, 0],
@@ -132,30 +132,45 @@ function submitCoordinate() {
 function storeMap(inputString) {
   strIndex = [parseInt(inputString[0].split("-")[0]), parseInt(inputString[0].split("-")[1])];
   direction = inputString[1];
-  let verticalFlag = 0, horizontalFlag = 0;
+  let returnFlag; // horizontal flag is the first element, vertical flag is the second element
+
+  if (submitCounter === 0) {
+    alert("No more ships to place");
+    return;
+  }
+
+  returnFlag = flagger(direction, strIndex, submitCounter);
+  submitCounter = mapper(direction, strIndex, submitCounter, returnFlag);
+}
+
+function flagger(direction, strIndex, submitCounter) {
+  let flagVar = [0, 0];
   for (let i = 0; i < submitCounter; i++) {
     if (direction === "horizontal" && strIndex[0] + submitCounter < 12) {
       if (mapIndex[`gc-${strIndex[0] + i}-${strIndex[1]}`][0] === 1) {
-        console.log(" h");
-        horizontalFlag = 1;
+        flagVar[0] = 1;
+
       }
     }
 
     if (direction === "vertical" && strIndex[1] + submitCounter < 12) {
       if (mapIndex[`gc-${strIndex[0]}-${strIndex[1] + i}`][0] === 1 && direction === "vertical") {
-        console.log(" v");
-        verticalFlag = 1;
+        flagVar[1] = 1;
       }
     }
   }
-  if (direction === "vertical" && (submitCounter + strIndex[1] < 12) && (strIndex[0] < 11) && (strIndex[1] < 11) && (verticalFlag === 0)) {
+  return flagVar;
+}
+
+function mapper(direction, strIndex, submitCounter, returnFlag) {
+  if (direction === "vertical" && (submitCounter + strIndex[1] < 12) && (strIndex[0] < 11) && (strIndex[1] < 11) && (returnFlag[1] === 0)) {
     for (let i = 0; i < submitCounter; i++) {
       mapIndex[`gc-${strIndex[0]}-${strIndex[1] + i}`][0] = 1;
       console.log($(`#gc-${strIndex[0]}-${strIndex[1] + i}`));
       $(`#gc-${strIndex[0]}-${strIndex[1] + i}`).append(`<div class="ship" id="size-${submitCounter}"></div>`);
     }
     submitCounter = submitCounter - 1;
-  } else if (direction === "horizontal" && (submitCounter + strIndex[0] < 12) && (strIndex[0] < 11) && (strIndex[1] < 11) && (horizontalFlag === 0)) {
+  } else if (direction === "horizontal" && (submitCounter + strIndex[0] < 12) && (strIndex[0] < 11) && (strIndex[1] < 11) && (returnFlag[0] === 0)) {
     for (let i = 0; i < submitCounter; i++) {
       mapIndex[`gc-${strIndex[0] + i}-${strIndex[1]}`][0] = 1;
       $(`#gc-${strIndex[0] + i}-${strIndex[1]}`).append(`<div class="ship" id="size-${submitCounter}"></div>`);
@@ -163,9 +178,8 @@ function storeMap(inputString) {
     submitCounter = submitCounter - 1;
   } else {
     alert("invalid coordinates or direction, try again");
-    verticalFlag = 0;
-    horizontalFlag = 0;
   }
+  return submitCounter;
 }
 
 // function appendShip(direction, flag) {
