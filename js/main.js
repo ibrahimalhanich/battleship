@@ -120,68 +120,130 @@ var winState = 0; //0 in progress, 1 for player-1 win, -1 for player-2 win
 var gameState = 0; //0 for setup, 1 for player-1's turn, -1 for player-2's turn
 var strIndex;
 var direction;
+var gcSpec;
+
 $("div.info button.submit").on("click", submitCoordinate);
 
 function submitCoordinate() {
-  console.log("Submit");
+  console.log(submitCounter, "submitCoordinate");
+  gcSpec = 0;
   var str = $("input.coordinates").val().split(","); //str=["1-1", "vertical"]
   storeMap(str);
-  console.log(submitCounter);
+  if (submitCounter === 0) {
+    initRandomizer();
+    console.log("return submit");
+    return;
+  } else {
+    $(".info p").text(`Now place your ${submitCounter}-block ship.`);
+  }
 }
 
 function storeMap(inputString) {
   strIndex = [parseInt(inputString[0].split("-")[0]), parseInt(inputString[0].split("-")[1])];
   direction = inputString[1];
   let returnFlag; // horizontal flag is the first element, vertical flag is the second element
-
-  if (submitCounter === 0) {
-    alert("No more ships to place");
-    return;
-  }
-
-  returnFlag = flagger(direction, strIndex, submitCounter);
-  submitCounter = mapper(direction, strIndex, submitCounter, returnFlag);
+  returnFlag = flagger(direction, strIndex, submitCounter, gcSpec);
+  submitCounter = mapper(direction, strIndex, submitCounter, returnFlag, gcSpec);
 }
 
-function flagger(direction, strIndex, submitCounter) {
+function flagger(direction, strIndex, submitCounter, gcSpec) {
   let flagVar = [0, 0];
-  for (let i = 0; i < submitCounter; i++) {
-    if (direction === "horizontal" && strIndex[0] + submitCounter < 12) {
-      if (mapIndex[`gc-${strIndex[0] + i}-${strIndex[1]}`][0] === 1) {
-        flagVar[0] = 1;
+  if (gcSpec === 0) {
+    for (let i = 0; i < submitCounter; i++) {
+      if (direction === "horizontal" && strIndex[0] + submitCounter < 12) {
+        if (mapIndex[`gc-${strIndex[0] + i}-${strIndex[1]}`][0] === 1) {
+          flagVar[0] = 1;
 
+        }
+      }
+
+      if (direction === "vertical" && strIndex[1] + submitCounter < 12) {
+        if (mapIndex[`gc-${strIndex[0]}-${strIndex[1] + i}`][0] === 1 && direction === "vertical") {
+          flagVar[1] = 1;
+        }
       }
     }
-
-    if (direction === "vertical" && strIndex[1] + submitCounter < 12) {
-      if (mapIndex[`gc-${strIndex[0]}-${strIndex[1] + i}`][0] === 1 && direction === "vertical") {
-        flagVar[1] = 1;
-      }
-    }
-  }
-  return flagVar;
-}
-
-function mapper(direction, strIndex, submitCounter, returnFlag) {
-  if (direction === "vertical" && (submitCounter + strIndex[1] < 12) && (strIndex[0] < 11) && (strIndex[1] < 11) && (returnFlag[1] === 0)) {
-    for (let i = 0; i < submitCounter; i++) {
-      mapIndex[`gc-${strIndex[0]}-${strIndex[1] + i}`][0] = 1;
-      console.log($(`#gc-${strIndex[0]}-${strIndex[1] + i}`));
-      $(`#gc-${strIndex[0]}-${strIndex[1] + i}`).append(`<div class="ship" id="size-${submitCounter}"></div>`);
-    }
-    submitCounter = submitCounter - 1;
-  } else if (direction === "horizontal" && (submitCounter + strIndex[0] < 12) && (strIndex[0] < 11) && (strIndex[1] < 11) && (returnFlag[0] === 0)) {
-    for (let i = 0; i < submitCounter; i++) {
-      mapIndex[`gc-${strIndex[0] + i}-${strIndex[1]}`][0] = 1;
-      $(`#gc-${strIndex[0] + i}-${strIndex[1]}`).append(`<div class="ship" id="size-${submitCounter}"></div>`);
-    }
-    submitCounter = submitCounter - 1;
+    return flagVar;
   } else {
-    alert("invalid coordinates or direction, try again");
+    for (let i = 0; i < submitCounter; i++) {
+      if (direction === "horizontal" && strIndex[0] + submitCounter < 12) {
+        if (mapIndex[`gc-${strIndex[0] + i}-${strIndex[1]}`][2] === 1) {
+          flagVar[0] = 1;
+
+        }
+      }
+
+      if (direction === "vertical" && strIndex[1] + submitCounter < 12) {
+        if (mapIndex[`gc-${strIndex[0]}-${strIndex[1] + i}`][2] === 1 && direction === "vertical") {
+          flagVar[1] = 1;
+        }
+      }
+    }
+    return flagVar;
   }
-  return submitCounter;
+
 }
 
+function mapper(direction, strIndex, submitCounter, returnFlag, gcSpec) {
+  if (gcSpec === 0) {
+    if (direction === "vertical" && (submitCounter + strIndex[1] < 12) && (strIndex[0] < 11) && (strIndex[1] < 11) && (returnFlag[1] === 0)) {
+      for (let i = 0; i < submitCounter; i++) {
+        mapIndex[`gc-${strIndex[0]}-${strIndex[1] + i}`][0] = 1;
+        $(`section#playerBoard #gc-${strIndex[0]}-${strIndex[1] + i}`).append(`<div class="ship" id="size-${submitCounter}"></div>`);
+      }
+      submitCounter = submitCounter - 1;
+    } else if (direction === "horizontal" && (submitCounter + strIndex[0] < 12) && (strIndex[0] < 11) && (strIndex[1] < 11) && (returnFlag[0] === 0)) {
+      for (let i = 0; i < submitCounter; i++) {
+        mapIndex[`gc-${strIndex[0] + i}-${strIndex[1]}`][0] = 1;
+        $(`section#playerBoard #gc-${strIndex[0] + i}-${strIndex[1]}`).append(`<div class="ship" id="size-${submitCounter}"></div>`);
+      }
+      submitCounter = submitCounter - 1;
+    } else {
+      alert("invalid coordinates or direction, try again");
+    }
+    return submitCounter;
+  } else {
+    if (direction === "vertical" && (submitCounter + strIndex[1] < 12) && (strIndex[0] < 11) && (strIndex[1] < 11) && (returnFlag[1] === 0)) {
+      for (let i = 0; i < submitCounter; i++) {
+        mapIndex[`gc-${strIndex[0]}-${strIndex[1] + i}`][2] = 1;
+        $(`section#computerBoard #gc-${strIndex[0]}-${strIndex[1] + i}`).append(`<div class="ship" id="size-${submitCounter}"></div>`);
+      }
+      submitCounter = submitCounter - 1;
+    } else if (direction === "horizontal" && (submitCounter + strIndex[0] < 12) && (strIndex[0] < 11) && (strIndex[1] < 11) && (returnFlag[0] === 0)) {
+      for (let i = 0; i < submitCounter; i++) {
+        mapIndex[`gc-${strIndex[0] + i}-${strIndex[1]}`][2] = 1;
+        $(`section#computerBoard #gc-${strIndex[0] + i}-${strIndex[1]}`).append(`<div class="ship" id="size-${submitCounter}"></div>`);
+      }
+      submitCounter = submitCounter - 1;
+    } else {
+      // alert("invalid coordinates or direction, try again");
+    }
+    return submitCounter;
+  }
+
+}
+
+
+function initRandomizer() {
+  $(".info h3").text(`No more ships to place. Now randomize the computer's grid.`);
+  $(".info p").remove();
+  $(".info section.input").remove();
+  $(".info").append(`<section class="randomizer"><button class="random">Randomize CPU Grid</button></section>`);
+  submitCounter = 5;
+  gcSpec = 1;
+  $("button.random").on("click", randomizerFunc);
+  console.log("left randomizerFunc");
+}
+
+function randomizerFunc() {
+  while (submitCounter !== 0) {
+    let randomizedIndex = [Math.floor((Math.random() * 10) + 1), Math.floor((Math.random() * 10) + 1)];
+    let directionIndex = Math.floor(Math.random() * 2);
+    let directions = ["vertical", "horizontal"];
+    let randomDirectionFlag = flagger(directions[directionIndex], randomizedIndex, submitCounter, gcSpec);
+    submitCounter = mapper(directions[directionIndex], randomizedIndex, submitCounter, randomDirectionFlag, gcSpec);
+  }
+}
 // function appendShip(direction, flag) {
 //   if()
 //   for (let i = 0; i < submitCounter; i++) {
