@@ -96,6 +96,23 @@ p{
 
 .ship{
     background-color: silver;
-    width: 100%;
-    height: 100%;
+    width: 99%;
+    height: 99%;
+}
+div.computerSpace .ship{
+    opacity: 0;
+}
+.hit-ship{
+    background-color: silver;
+    width: 99%;
+    height: 99%;
+    font-size: 50px;
+    text-align: center;
+    font-weight: 900;
+}
+
+.unplayable{
+    font-size: 50px;
+    font-weight: 900;
+    text-align: center;
 }

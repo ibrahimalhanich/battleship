@@ -120,8 +120,10 @@ var winState = 0; //0 in progress, 1 for player-1 win, -1 for player-2 win
 var gameState = 0; //0 for setup, 1 for player-1's turn, -1 for player-2's turn
 var strIndex;
 var direction;
-var gcSpec;
-
+var gcSpec; //grid-cell specificity (aka: am I modifying the player's grid or the cpu's grid?)
+var clickBind = 1;
+var hitCounter = 0;
+var cpuHitCounter = 0;
 $("div.info button.submit").on("click", submitCoordinate);
 
 function submitCoordinate() {
@@ -243,135 +245,81 @@ function randomizerFunc() {
     let randomDirectionFlag = flagger(directions[directionIndex], randomizedIndex, submitCounter, gcSpec);
     submitCounter = mapper(directions[directionIndex], randomizedIndex, submitCounter, randomDirectionFlag, gcSpec);
   }
+  //after you're done randomizing the cpu grid you now want to update the informational section and allow
+  //the user to start playing the game. (aka: handle any click events on the opponent grid)
+  console.log("play?")
+  $(".info h3").text("Your move!");
+  $(".info section.randomizer").remove();
+  $("section#computerBoard div.playable").on("click", gameClick);
 }
-// function appendShip(direction, flag) {
-//   if()
-//   for (let i = 0; i < submitCounter; i++) {
-//     mapIndex[`gc-${strIndex[0] + i}-${strIndex[1]}`][0] = 1;
 
-//   }
-// }
-// var playerBoard = [ // 0 for untouched, 1 for hit, -1 for miss
-//   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-//   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-//   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-//   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-//   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-//   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-//   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-//   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-//   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-//   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-// ];
+function gameClick(evt) {
+  // let playerTurn = 1; //if 1, player plays, else: computer plays
+  if (clickBind === 0) {
+    return;
+  }
+  if (hitCounter === 15 || cpuHitCounter === 15) {
+    return;
+  }
+  if ($(evt.target).parent().hasClass("unplayable")) {
+    return;
+  }
+  if ($(evt.target).hasClass("ship")) {
+    hit($(evt.target));
+    hitCounter++;
+    if (hitCounter === 15) {
+      $(".info h3").text("You are the winner!");
+      return;
+    }
+  } else if ($(evt.target)) {
+    miss($(evt.target));
+  }
+  clickBind = 0;
+  // playerTurn = playerTurn * -1;
+  $(".info h3").text("Melissa's turn!");
+  setTimeout("computerTurn()", 1000);
+}
 
-// var computerBoard = [ // 0 for untouched, 1 for hit, -1 for miss
-//   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-//   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-//   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-//   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-//   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-//   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-//   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-//   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-//   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-//   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-// ];
+function hit(evtTarget) {
+  evtTarget.attr("class", "hit-ship");
+  evtTarget.text("X");
+  evtTarget.parent().attr("class", "unplayable");
+  mapIndex[evtTarget.parent().attr("id")][3] = 1;
+  console.log(mapIndex[evtTarget.parent().attr("id")]);
+}
 
-// "c1rB": [1, 0],
-// "c2rB": [1, 1],
-// "c3rB": [1, 2],
-// "c4rB": [1, 3],
-// "c5rB": [1, 4],
-// "c6rB": [1, 5],
-// "c7rB": [1, 6],
-// "c8rB": [1, 7],
-// "c9rB": [1, 8],
-// "c10rB": [1, 9],
-// //third row
-// "c1rC": [2, 0],
-// "c2rC": [2, 1],
-// "c3rC": [2, 2],
-// "c4rC": [2, 3],
-// "c5rC": [2, 4],
-// "c6rC": [2, 5],
-// "c7rC": [2, 6],
-// "c8rC": [2, 7],
-// "c9rC": [2, 8],
-// "c10rC": [2, 9],
-// //fourth row
-// "c1rD": [3, 0],
-// "c2rD": [3, 1],
-// "c3rD": [3, 2],
-// "c4rD": [3, 3],
-// "c5rD": [3, 4],
-// "c6rD": [3, 5],
-// "c7rD": [3, 6],
-// "c8rD": [3, 7],
-// "c9rD": [3, 8],
-// "c10rD": [3, 9],
-// //fifth row
-// "c1rE": [4, 0],
-// "c2rE": [4, 1],
-// "c3rE": [4, 2],
-// "c4rE": [4, 3],
-// "c5rE": [4, 4],
-// "c6rE": [4, 5],
-// "c7rE": [4, 6],
-// "c8rE": [4, 7],
-// "c9rE": [4, 8],
-// "c10rE": [4, 9],
-// //sixth row
-// "c1rF": [5, 0],
-// "c2rF": [5, 1],
-// "c3rF": [5, 2],
-// "c4rF": [5, 3],
-// "c5rF": [5, 4],
-// "c6rF": [5, 5],
-// "c7rF": [5, 6],
-// "c8rF": [5, 7],
-// "c9rF": [5, 8],
-// "c10rF": [5, 9],
-// //seventh row
-// "c1rG": [6, 0],
-// "c2rG": [6, 1],
-// "c3rG": [6, 2],
-// "c4rG": [6, 3],
-// "c5rG": [6, 4],
-// "c6rG": [6, 5],
-// "c7rG": [6, 6],
-// "c8rG": [6, 7],
-// "c9rG": [6, 8],
-// "c10rG": [6, 9],
-// //eighth row
-// "c1rH": [7, 0],
-// "c2rH": [7, 1],
-// "c3rH": [7, 2],
-// "c4rH": [7, 3],
-// "c5rH": [7, 4],
-// "c6rH": [7, 5],
-// "c7rH": [7, 6],
-// "c8rH": [7, 7],
-// "c9rH": [7, 8],
-// "c10rH": [7, 9],
-// //ninth row
-// "c1rI": [8, 0],
-// "c2rI": [8, 1],
-// "c3rI": [8, 2],
-// "c4rI": [8, 3],
-// "c5rI": [8, 4],
-// "c6rI": [8, 5],
-// "c7rI": [8, 6],
-// "c8rI": [8, 7],
-// "c9rI": [8, 8],
-// "c10rI": [8, 9],
-// //tenth row
-// "c1rJ": [9, 0],
-// "c2rJ": [9, 1],
-// "c3rJ": [9, 2],
-// "c4rJ": [9, 3],
-// "c5rJ": [9, 4],
-// "c6rJ": [9, 5],
-// "c7rJ": [9, 6],
-// "c8rJ": [9, 7],
-// "c9rJ": [9, 8],
-// "c10rJ": [9, 9],
+function miss(evtTarget) {
+  evtTarget.text(".");
+  evtTarget.attr("class", "unplayable");
+  mapIndex[evtTarget.attr("id")][3] = -1;
+  console.log(mapIndex[evtTarget.attr("id")]);
+}
+
+function computerTurn() {
+  let randomizedIndex = [Math.floor((Math.random() * 10) + 1), Math.floor((Math.random() * 10) + 1)];
+  str = `gc-${randomizedIndex[0]}-${randomizedIndex[1]}`;
+  let indexElement = $(`section#playerBoard #${str}`);
+  if (mapIndex[str][1] !== 0) {
+    computerTurn();
+  } else {
+    console.log(indexElement.children().length, " children");
+    if (indexElement.children().length > 0) {
+      indexElement.children().attr("class", "hit-ship");
+      indexElement.children().text("X");
+      indexElement.attr("class", "unplayable");
+      mapIndex[str][1] = 1;
+      cpuHitCounter++;
+    } else {
+      indexElement.text(".");
+      indexElement.attr("class", "unplayable");
+      mapIndex[str][1] = -1;
+    }
+    if (cpuHitCounter < 15) {
+      $(".info h3").text("Your move!");
+      clickBind = 1;
+    } else if (cpuHitCounter === 15) {
+      $(".info h3").text("Melissa is the winner!");
+    }
+  }
+  return;
+}
