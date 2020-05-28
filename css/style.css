@@ -42,10 +42,9 @@ html{
 
 #playerBoard {
     display: grid;
-    margin: 20px;
-    padding-left: 50px;
+    padding-left: 150px;
     grid-template-columns: repeat(11, 3vw);
-    grid-template-rows: repeat(11, 3vh);
+    grid-template-rows: repeat(11, 5vh);
     justify-content: center;
     /* align-items: center; */
     /* grid-gap: 1px; */
@@ -55,10 +54,10 @@ html{
 }
 #computerBoard {
     display: grid;
-    margin: 20px;
-    padding-right: 150px;
+    padding-right: 200px;
+    /* font-size: 3vw; */
     grid-template-columns: repeat(11, 3vw);
-    grid-template-rows: repeat(11, 3vh);
+    grid-template-rows: repeat(11, 5vh);
     justify-content: center;
     /* grid-gap: 1px; */
 }
@@ -68,6 +67,7 @@ html{
 
 #playerBoard div {
     border: 1px solid black;
+    font-size: 2vw;
 }
 
 #playerBoard div.emptyBorder{
@@ -80,6 +80,7 @@ div.botBorder{
 
 #computerBoard div {
     border: 1px solid black;
+    font-size: 2vw;
 }
 
 #computerBoard div.emptyBorder{
