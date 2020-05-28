@@ -292,7 +292,6 @@ function miss(evtTarget) {
   evtTarget.text(".");
   evtTarget.attr("class", "unplayable");
   mapIndex[evtTarget.attr("id")][3] = -1;
-  console.log(mapIndex[evtTarget.attr("id")]);
 }
 
 function computerTurn() {
@@ -302,7 +301,6 @@ function computerTurn() {
   if (mapIndex[str][1] !== 0) {
     computerTurn();
   } else {
-    console.log(indexElement.children().length, " children");
     if (indexElement.children().length > 0) {
       indexElement.children().attr("class", "hit-ship");
       indexElement.children().text("X");
