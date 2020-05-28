@@ -43,9 +43,9 @@ html{
 #playerBoard {
     display: grid;
     margin: 20px;
-    padding-left: 100px;
-    grid-template-columns: repeat(11, 4vw);
-    grid-template-rows: repeat(11, 5vh);
+    padding-left: 50px;
+    grid-template-columns: repeat(11, 3vw);
+    grid-template-rows: repeat(11, 3vh);
     justify-content: center;
     /* align-items: center; */
     /* grid-gap: 1px; */
@@ -56,9 +56,9 @@ html{
 #computerBoard {
     display: grid;
     margin: 20px;
-    padding-right: 100px;
-    grid-template-columns: repeat(11, 4vw);
-    grid-template-rows: repeat(11, 5vh);
+    padding-right: 150px;
+    grid-template-columns: repeat(11, 3vw);
+    grid-template-rows: repeat(11, 3vh);
     justify-content: center;
     /* grid-gap: 1px; */
 }
@@ -127,13 +127,13 @@ div.computerSpace .ship{
     background-color: silver;
     width: 99%;
     height: 99%;
-    font-size: 50px;
+    font-size: 30px;
     text-align: center;
     font-weight: 900;
 }
 
 .unplayable{
-    font-size: 50px;
+    font-size: 30px;
     font-weight: 900;
     text-align: center;
 }
